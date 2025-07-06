@@ -1,0 +1,396 @@
+# FeedbackMe Project - Cursor Rules
+
+## 🚨 CRITICAL: Always Read PRD.md First
+**MANDATORY**: Before starting any planning, coding, or task execution, you MUST:
+1. Read and understand the PRD.md file completely
+2. Check the current project status and roadmap
+3. Review the TODO system for task priorities and dependencies
+4. Understand the current implementation state
+5. Verify your approach aligns with the project vision and technical architecture
+
+## 📋 Project Overview
+You are an expert in Web Development using the stack: Next.js 15+, Neon PostgreSQL, Tailwind CSS, shadcn/ui, Drizzle ORM, TypeScript
+
+## 🎯 Tech Stack & Architecture
+
+### Core Stack
+- **Framework**: Next.js 15+ (App Router only)
+- **Language**: TypeScript (strict mode)
+- **Database**: Neon PostgreSQL (serverless)
+- **ORM**: Drizzle ORM with TypeScript
+- **Styling**: Tailwind CSS + CSS Variables
+- **Components**: shadcn/ui (built on Radix UI)
+- **State Management**: TanStack Query for server state
+- **Forms**: React Hook Form + Zod validation
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+- **Deployment**: Vercel
+
+### Key Principles
+- Minimize 'use client' directives - favor React Server Components (RSC)
+- Use client components only for Web API access in small components
+- Avoid client components for data fetching or state management
+- When using client-side hooks (useState, useEffect), always add "use client" directive
+- Follow Next.js docs for Data Fetching, Rendering, and Routing
+
+## 🕐 MCP Time Server Configuration
+
+### Time Server Setup
+The project uses Model Context Protocol (MCP) time server for all timestamp operations:
+
+**Installation & Configuration**:
+```bash
+# Install time MCP server
+pip install time-mcp-local
+
+# Or use uvx (recommended)
+uvx time-mcp-local
+```
+
+**Cursor Configuration**:
+Add to Cursor MCP settings:
+```json
+{
+  "name": "time",
+  "command": "uvx",
+  "args": ["time-mcp-local", "--local-timezone=Asia/Singapore"]
+}
+```
+
+### Time Usage Guidelines
+- **Primary Timezone**: Asia/Singapore (SGT UTC+8)
+- **Format Standard**: `dd-mm-yyyy hh:mm:ss` (e.g., `06-07-2025 12:12:25`)
+- **Usage**: Use MCP time server for all timestamps in PRD.md updates, task tracking, and documentation
+- **Commands**:
+  - Get current time: Request current time in Singapore timezone
+  - Time conversion: Convert between different timezones when needed
+  - Consistent formatting: Always format timestamps as `dd-mm-yyyy hh:mm:ss`
+
+### MCP Time Integration
+**MANDATORY**: Use MCP time server for:
+- PRD.md document updates ("Last Updated" timestamps)
+- Task status changes (Started/Completed timestamps)
+- File modification timestamps
+- Version control commit timestamps
+- Documentation updates
+
+**Example Usage**:
+```
+Started: 06-07-2025 12:12:25
+Completed: 06-07-2025 14:30:15
+Last Updated: 06-07-2025 12:12:25
+```
+
+## 🎨 Code Style and Structure
+
+### Writing Style
+- Write concise, technical TypeScript code with accurate examples
+- Use functional and declarative programming patterns; avoid classes
+- Prefer iteration and modularization over code duplication
+- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
+- Structure files: exported component, subcomponents, helpers, static content
+
+### Naming Conventions
+- Use kebab-case for directories
+- Use camelCase for variables and functions
+- Use PascalCase for components
+- File names for components should be in PascalCase
+- Rest of the files in kebab-case
+- Prefix component names with their type (e.g. ButtonAccount.tsx, CardMain.tsx)
+
+### Syntax and Formatting
+- Use the "function" keyword for pure functions
+- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
+- Use declarative JSX
+- Fix all linter problems if possible
+
+## 🏗️ Project Structure
+
+### Directory Structure
+```
+feedbackme-waitlist-nextjs/
+├── app/                    # Next.js app router (pages, layouts, API routes)
+│   ├── api/               # API route handlers
+│   ├── components/        # Page-specific components
+│   ├── lib/              # App-specific utilities
+│   ├── globals.css       # Global styles
+│   ├── layout.tsx        # Root layout
+│   └── page.tsx          # Main page
+├── components/           # Reusable React components
+│   └── ui/              # shadcn/ui components
+├── lib/                 # Shared libraries and database connections
+├── hooks/               # Custom React hooks
+├── types/               # TypeScript type definitions
+├── utils/               # Helper functions
+├── public/              # Static assets
+├── PRD.md               # Product Requirements Document (READ FIRST!)
+└── README.md            # Project documentation
+```
+
+## 🎨 UI and Styling
+
+### Design System
+- **Theme**: Black (#000000) background with yellow/amber/orange accents
+- **Colors**: 
+  - Primary: Yellow (#EAB308), Amber (#F59E0B), Orange (#EA580C)
+  - Text: White (#FFFFFF), Slate-300 (#CBD5E1), Slate-400 (#94A3B8)
+- **Font**: Inter (Google Fonts)
+- **Effects**: Glassmorphism with `rgba(0, 0, 0, 0.4)` backgrounds
+
+### Component Guidelines
+- Use shadcn/ui and Tailwind CSS for components and styling
+- Implement responsive design with Tailwind CSS; use mobile-first approach
+- Use glassmorphism effects for cards: `bg-black/40 backdrop-blur-xl border border-yellow-500/20`
+- For animations use Framer Motion
+- Touch targets minimum 44px on mobile
+
+### CSS Classes
+- Use `glass-morphism` class for glass effects
+- Use `glass-input` class for form inputs
+- Use gradient backgrounds for CTAs: `bg-gradient-to-r from-yellow-500 to-amber-600`
+- Use hover effects: `hover:scale-105 transition-all duration-300`
+- Use responsive spacing: `p-4 sm:p-6 lg:p-8`
+
+## ⚡ Performance Optimization
+
+### React Server Components
+- Minimize 'use client' usage
+- Favor server components and Next.js SSR
+- Use client components only for Web API access
+- Wrap client components in Suspense with fallback
+- Use dynamic loading for non-critical components
+
+### Image Optimization
+- Optimize images: use WebP format, include size data, implement lazy loading
+- Use Next.js Image component with proper sizing
+
+### Web Vitals
+- Optimize Web Vitals (LCP, CLS, FID)
+- Target <3s page load time
+- Ensure >95% uptime
+
+## 🗄️ Database & API
+
+### Database Guidelines
+- Use Drizzle ORM with TypeScript for all database operations
+- Use Neon PostgreSQL serverless database
+- Implement proper error handling for database operations
+- Use Zod schemas for validation
+- Follow the schema patterns defined in PRD.md
+
+### API Design
+- Use Next.js API routes in `app/api/` directory
+- Implement proper HTTP status codes
+- Use consistent error response format
+- Validate all inputs with Zod schemas
+- Return proper JSON responses
+
+## 🔒 Security & Validation
+
+### Input Validation
+- Always validate inputs on both client and server side
+- Use Zod schemas for validation
+- Implement proper error handling
+- Sanitize user inputs
+- Use TypeScript strict mode
+
+### Authentication (Future)
+- Ready for NextAuth.js implementation
+- Google OAuth integration planned
+- Follow security best practices
+
+## 📱 Development Workflow
+
+### Before Starting Any Task
+1. **READ PRD.md** - Understanding current status and requirements
+2. Check TODO system for task priorities and dependencies
+3. Verify approach aligns with project vision
+4. Review current implementation state
+
+### Development Rules
+- Do not run `npm run dev` automatically - prompt user to re-run instead
+- Read the PRD.md file before starting any planning or coding
+- After finishing coding, update the PRD.md TODO system with timestamps
+- Update task status from 🔴 NOT STARTED → 🟡 IN PROGRESS → 🟢 COMPLETED
+- **Use MCP Time Server for all timestamps**: Always use MCP time server to get current time in Singapore timezone (Asia/Singapore) and format as `dd-mm-yyyy hh:mm:ss` (e.g., `06-07-2025 12:12:25`)
+- **Phase Completion Rule**: When ALL tasks in a phase are completed AND we move to the next phase, summarize them as one completed task with "(Phase X)" tag and remove individual completed tasks
+- **ALWAYS update PRD.md at the end of each task** - document changes, new features, or modifications
+- Keep PRD.md current with project status, architecture changes, and implementation details
+- **CRITICAL: Maintain synchronization between .cursorrules and CLAUDE.md** - any changes to one file must be reflected in the other
+
+### Design Requirements
+- Make designs beautiful and production-worthy, not cookie cutter
+- Do not install other packages for UI themes, icons, etc unless absolutely necessary
+- Create webpages that are fully featured and worthy for production
+
+## 🚀 Deployment
+
+### Vercel Configuration
+- Next.js projects work out of the box with Vercel
+- Set environment variables in Vercel dashboard
+- Use proper environment variable naming
+
+### Environment Variables
+```bash
+# Required
+DATABASE_URL="postgresql://..."
+NODE_ENV=production
+
+# Optional (Future)
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
+```
+
+## 📋 TODO System Management
+
+### Task Status Updates
+When working on tasks, update the PRD.md TODO system using MCP time server:
+
+1. **Starting a task**: Move from 🔴 NOT STARTED to 🟡 IN PROGRESS
+   - Get current time using MCP time server (Asia/Singapore timezone)
+   - Add `Started: dd-mm-yyyy hh:mm:ss` (e.g., `Started: 06-07-2025 12:12:25`)
+   
+2. **Completing a task**: Move from 🟡 IN PROGRESS to 🟢 COMPLETED
+   - Get current time using MCP time server (Asia/Singapore timezone)
+   - Add `Completed: dd-mm-yyyy hh:mm:ss` (e.g., `Completed: 06-07-2025 14:30:15`)
+   - Add `Actual Time: X hours/days`
+
+3. **Adding new tasks**: Add to 🔴 NOT STARTED section with:
+   - Priority: High/Medium/Low
+   - Estimated Time: X hours/days
+   - Dependencies: List any dependencies
+
+### Task Format
+```markdown
+- [ ] **Task Name** - Brief description
+  - Priority: High/Medium/Low
+  - Estimated Time: X hours/days
+  - Dependencies: List dependencies
+  - Started: dd-mm-yyyy hh:mm:ss (when moving to IN PROGRESS - use MCP time server)
+  - Completed: dd-mm-yyyy hh:mm:ss (when moving to COMPLETED - use MCP time server)
+  - Actual Time: X hours/days (when completed)
+```
+
+### Phase Completion Format
+```markdown
+- [x] **Phase Name (Phase X)** - Summary of phase completion
+  - Started: dd-mm-yyyy hh:mm:ss (use MCP time server)
+  - Completed: dd-mm-yyyy hh:mm:ss (use MCP time server)
+  - Priority: High/Medium/Low
+  - Estimated Time: X hours/days
+  - Actual Time: X hours/days
+  - Tasks Included: Brief list of major tasks completed in this phase
+```
+
+### PRD.md Maintenance
+At the end of each task, update PRD.md with:
+
+1. **Update Document Information**:
+   - Use MCP time server to get current time in Singapore timezone (Asia/Singapore)
+   - Change "Last Updated" timestamp to current time in format: `dd-mm-yyyy hh:mm:ss`
+   - Increment version if major changes made
+
+2. **Update Current Implementation section**:
+   - Add new features or components implemented
+   - Update API endpoints if new ones added
+   - Document any architectural changes
+
+3. **Update TODO System**:
+   - Move completed tasks to 🟢 COMPLETED with timestamps
+   - Add new tasks discovered during development
+   - Update dependencies if they changed
+
+4. **Update Technical Architecture**:
+   - Document new dependencies added
+   - Update database schema if changed
+   - Note any new environment variables
+
+5. **Update Success Metrics**:
+   - Add new metrics if applicable
+   - Update targets based on learnings
+
+### File Synchronization Rules
+**CRITICAL**: .cursorrules and CLAUDE.md must stay synchronized
+
+**When updating .cursorrules**:
+1. Identify what sections changed (code standards, workflow, etc.)
+2. Update corresponding sections in CLAUDE.md
+3. Ensure both files have consistent information
+4. Update timestamps in both files
+5. Document the sync in PRD.md
+
+**When updating CLAUDE.md**:
+1. Identify what sections changed (AI guidelines, standards, etc.)
+2. Update corresponding sections in .cursorrules
+3. Ensure both files have consistent information  
+4. Update timestamps in both files
+5. Document the sync in PRD.md
+
+**Synchronization Process**:
+1. Make changes to primary file
+2. Review what changed and identify corresponding sections
+3. Update the secondary file with matching changes
+4. Verify consistency between both files
+5. Test that both files work as expected
+6. Update PRD.md with sync completion
+
+## 🔧 Code Quality
+
+### TypeScript
+- Use strict mode
+- Proper type definitions
+- Avoid `any` type
+- Use interfaces for object types
+- Export types from dedicated files
+
+### Error Handling
+- Implement proper try-catch blocks
+- Use meaningful error messages
+- Return appropriate HTTP status codes
+- Log errors appropriately
+
+### Testing (Future)
+- Write unit tests for utility functions
+- Test API endpoints
+- Test form validation
+- Test user interactions
+
+## 💻 Commands
+
+### Development Commands
+```bash
+# Development
+npm run dev
+
+# Build
+npm run build
+
+# Database
+npm run db:push
+
+# Type checking
+npm run type-check
+
+# Linting
+npm run lint
+```
+
+## 📚 Key Resources
+
+### Documentation
+- **PRD.md** - Primary project documentation (READ FIRST!)
+- **backup.md** - Complete project backup and specifications
+- Next.js documentation
+- Tailwind CSS documentation
+- shadcn/ui documentation
+- Drizzle ORM documentation
+
+### Design References
+- Current design: Black background with yellow/amber accents
+- Glassmorphism effects throughout
+- Mobile-first responsive design
+- Clean, modern UI with smooth animations
+
+---
+
+**Remember**: Always start by reading PRD.md to understand the current project state, priorities, and requirements before beginning any task or planning session. 
