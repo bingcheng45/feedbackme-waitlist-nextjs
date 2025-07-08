@@ -120,6 +120,23 @@ export const votes = pgTable("votes", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const comments = pgTable("comments", {
+  id: serial("id").primaryKey(),
+  content: text("content").notNull(),
+  feedbackItemId: integer("feedback_item_id")
+    .notNull()
+    .references(() => feedbackItems.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .references(() => users.id, { onDelete: "cascade" }),
+  userEmail: text("user_email"), // For non-authenticated users
+  userName: text("user_name"), // For non-authenticated users
+  parentCommentId: integer("parent_comment_id"), // For threaded discussions - self-reference
+  isModerated: boolean("is_moderated").default(false).notNull(), // For moderation
+  isDeleted: boolean("is_deleted").default(false).notNull(), // Soft delete
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 // Validation schemas
 export const projectSchema = z.object({
   name: z.string().min(2, "Project name must be at least 2 characters").max(50, "Project name must be less than 50 characters").trim(),
@@ -145,6 +162,14 @@ export const voteSchema = z.object({
   userEmail: z.string().email("Please enter a valid email address").optional(),
 });
 
+export const commentSchema = z.object({
+  content: z.string().min(5, "Comment must be at least 5 characters").max(500, "Comment must be less than 500 characters").trim(),
+  feedbackItemId: z.number().int().positive("Invalid feedback item ID"),
+  parentCommentId: z.number().int().positive("Invalid parent comment ID").optional(),
+  userEmail: z.string().email("Please enter a valid email address").optional(),
+  userName: z.string().min(2, "Name must be at least 2 characters").max(50, "Name must be less than 50 characters").trim().optional(),
+});
+
 // TypeScript types
 export type WaitlistRegistration = typeof waitlistRegistrations.$inferSelect;
 export type NewWaitlistRegistration = typeof waitlistRegistrations.$inferInsert;
@@ -155,4 +180,6 @@ export type NewProject = typeof projects.$inferInsert;
 export type FeedbackItem = typeof feedbackItems.$inferSelect;
 export type NewFeedbackItem = typeof feedbackItems.$inferInsert;
 export type Vote = typeof votes.$inferSelect;
-export type NewVote = typeof votes.$inferInsert; 
+export type NewVote = typeof votes.$inferInsert;
+export type Comment = typeof comments.$inferSelect;
+export type NewComment = typeof comments.$inferInsert; 
