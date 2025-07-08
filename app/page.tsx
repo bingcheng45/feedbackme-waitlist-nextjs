@@ -2,9 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ChevronRight, Zap, Users, BarChart3, ArrowRight } from 'lucide-react';
+import { Zap, Users, BarChart3, ArrowRight } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { ConfettiToast } from '@/components/ui/ConfettiToast';
+import { AuthButton } from '@/components/auth/AuthButton';
+import { DashboardLink } from '@/components/nav/DashboardLink';
 
 interface WaitlistFormData {
   fullName: string;
@@ -108,7 +110,7 @@ export default function HomePage() {
         
         setSubmitStatus({
           type: 'success',
-          message: `${result.message} You're #${result.data.position} in line!`
+          message: `${result.message} You&apos;re #${result.data.position} in line!`
         });
         // Reset form
         setFormData({ fullName: '', email: '' });
@@ -153,9 +155,10 @@ export default function HomePage() {
             <div className="flex items-center">
               <span className="text-2xl font-bold gradient-text">FeedbackMe</span>
             </div>
-            <button className="btn-primary">
-              Join Waitlist
-            </button>
+            <div className="flex items-center space-x-4">
+              <DashboardLink />
+              <AuthButton size="sm" />
+            </div>
           </div>
         </div>
       </motion.nav>
@@ -328,7 +331,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-semibold mb-4">Lightning Integration</h3>
               <p className="text-slate-300 leading-relaxed">
-                Just a few lines of code and you're live. No complex setup, no configuration headaches. 
+                Just a few lines of code and you&apos;re live. No complex setup, no configuration headaches. 
                 Get feedback flowing in minutes, not days.
               </p>
             </motion.div>

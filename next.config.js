@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-    serverComponentsExternalPackages: ['postgres'],
-  },
+  serverExternalPackages: ['postgres'],
   images: {
     domains: [],
     formats: ['image/webp', 'image/avif'],
@@ -14,7 +11,6 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: false,
   },
-  swcMinify: true,
   reactStrictMode: true,
   poweredByHeader: false,
   compress: true,

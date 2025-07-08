@@ -44,6 +44,7 @@ export function ConfettiToast({ position, email, isExisting }: ConfettiToastProp
 
       return () => clearInterval(interval);
     }
+    return undefined;
   }, [isExisting]);
 
   return (
@@ -61,7 +62,7 @@ export function ConfettiToast({ position, email, isExisting }: ConfettiToastProp
             {isExisting ? "Already on the waitlist!" : "Welcome to the waitlist!"}
           </div>
           <div className="text-sm opacity-90">
-            You're <span className="font-bold">#{position}</span> in line
+            You&apos;re <span className="font-bold">#{position}</span> in line
           </div>
           <div className="text-xs opacity-75 mt-1">
             <span className="font-bold underline">{email}</span>
