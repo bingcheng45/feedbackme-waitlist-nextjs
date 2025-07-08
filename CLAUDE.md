@@ -220,6 +220,51 @@ feedbackme-waitlist-nextjs/
 - Add actual time vs estimated time
 - Update dependencies if they changed
 
+### Advanced Task Management
+
+#### Task Breakdown Rules
+- **Complex tasks (>2 hours)**: Break down into subtasks of 30-60 minutes each
+- **Subtask Format**: Use nested checkboxes for subtasks under main tasks
+- **Dependency Tracking**: Always verify dependencies are completed before starting
+- **Acceptance Criteria**: Each task must have clear, testable acceptance criteria
+
+#### Task Progression Guidelines
+1. **Never skip dependencies**: Complete all prerequisite tasks first
+2. **Single task focus**: Only one task should be "IN PROGRESS" at a time
+3. **Blockers**: If blocked, move task back to "NOT STARTED" and add "Blocked by: [reason]"
+4. **Time tracking**: If actual time exceeds estimate by >50%, reassess future estimates
+
+#### Task Completion Checklist (MANDATORY)
+**CRITICAL**: After completing ANY coding task, you MUST follow this checklist:
+
+1. **Get Current Time**: Use MCP time server for Singapore timezone timestamp
+2. **Check PRD.md**: Open PRD.md and verify current task status
+3. **Update Task Status**: Move from 🟡 IN PROGRESS to 🟢 COMPLETED
+4. **Add Timestamps**: Add completion timestamp using MCP time server format
+5. **Calculate Time**: Add actual time vs estimated time
+6. **Update Dependencies**: Update any related tasks that can now start
+7. **Phase Check**: If phase is complete, consolidate tasks under "(Phase X)" entry
+8. **Document Changes**: Update "Current Implementation" section with new features
+9. **Version Update**: Increment PRD.md version and update "Last Updated" timestamp
+10. **Verify Sync**: Ensure changes align with cursor rules and Claude rules
+
+**NEVER skip this checklist** - task completion without PRD.md update is incomplete.
+
+#### Automatic TODO Updates
+**MANDATORY**: After completing ANY coding task, immediately update PRD.md:
+- Move completed task to 🟢 COMPLETED section
+- Add start/completion timestamps using MCP time server
+- Calculate and add actual time
+- Update any related tasks' dependencies
+- Add lessons learned if applicable
+
+#### Task Creation Guidelines
+When creating new tasks:
+- **Atomic**: Each task should accomplish one specific goal
+- **Measurable**: Include quantifiable acceptance criteria
+- **Timeboxed**: Estimate should be realistic based on complexity
+- **Contextual**: Include enough detail for future reference
+
 ### Development Standards
 - Do not auto-run `npm run dev` - prompt user instead
 - Make designs beautiful and production-worthy, not cookie cutter

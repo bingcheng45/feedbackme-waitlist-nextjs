@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide scrollbar for all elements */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for webkit browsers (Chrome, Safari) */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Ensure body and html can still scroll */
+html,
+body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* Hide scrollbar for webkit browsers on html and body */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* CSS Variables for theming */
+:root {
+  --background: 0 0% 0%; /* Pure black */
+  --foreground: 0 0% 100%; /* Pure white */
+  --card: 0 0% 0%;
+  --card-foreground: 0 0% 100%;
+  --popover: 0 0% 0%;
+  --popover-foreground: 0 0% 100%;
+  --primary: 45 93% 47%; /* Yellow #EAB308 */
+  --primary-foreground: 0 0% 0%;
+  --secondary: 45 93% 47%;
+  --secondary-foreground: 0 0% 0%;
+  --muted: 215 28% 17%;
+  --muted-foreground: 217 11% 65%;
+  --accent: 45 93% 47%;
+  --accent-foreground: 0 0% 0%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 45 19% 22%;
+  --input: 45 19% 22%;
+  --ring: 45 93% 47%;
+  --radius: 0.5rem;
+}
+
+/* Base styles */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
+  font-family: 'Inter', sans-serif;
+  font-feature-settings: 'cv11', 'ss01';
+  font-variation-settings: 'opsz' 32;
+  scroll-behavior: smooth;
+}
+
+/* Custom utility classes */
+@layer utilities {
+  .glass-morphism {
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    box-shadow: 0 8px 32px 0 rgba(251, 191, 36, 0.1);
+  }
+  
+  .glass-input {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  .glass-input:focus {
+    background: rgba(0, 0, 0, 0.8);
+    border-color: rgba(251, 191, 36, 0.6);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.2);
+  }
+  
+  .gradient-text {
+    background: linear-gradient(135deg, #EAB308 0%, #F59E0B 50%, #EA580C 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .gradient-border {
+    background: linear-gradient(135deg, #EAB308 0%, #F59E0B 50%, #EA580C 100%);
+    padding: 2px;
+    border-radius: 0.5rem;
+  }
+  
+  .gradient-border > * {
+    background: #000;
+    border-radius: calc(0.5rem - 2px);
+  }
+  
+  .glow-effect {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+  }
+  
+  .glow-effect:hover {
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.5);
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    @apply bg-gradient-to-r from-feedbackme-yellow to-feedbackme-amber text-black hover:from-feedbackme-amber hover:to-feedbackme-orange;
+    @apply h-10 px-4 py-2;
+    @apply hover:scale-105 transform transition-all duration-300;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50;
+    @apply glass-morphism text-white hover:bg-feedbackme-glass;
+    @apply h-10 px-4 py-2;
+    @apply hover:scale-105 transform transition-all duration-300;
+  }
+  
+  .card-glass {
+    @apply glass-morphism rounded-lg p-6;
+    @apply border border-feedbackme-border;
+    @apply hover:border-feedbackme-yellow/40 transition-all duration-300;
+  }
+  
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-spacing {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(251, 191, 36, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(251, 191, 36, 0.5);
+}
+
+/* Selection styles */
+::selection {
+  background: rgba(251, 191, 36, 0.3);
+  color: #fff;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid rgba(251, 191, 36, 0.6);
+  outline-offset: 2px;
+}
+
+/* Animation improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+} 
